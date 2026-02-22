@@ -1,3 +1,5 @@
+%Lucas Yuuki Sasaki Ramos (00588802)
+
 clear all
 close all
 clc
@@ -12,7 +14,7 @@ m = 3.0;          %(kg) Disk mass
 r = 0.08;         %(m)
 M0 = 1.0;         %(N*m)
 omega_1_0 = 90;   %(rad/s)
-alpha_1 = -15;    %(rad/s^2) Angular acceleration
+alpha_1 = -15;    %(rad/s^2) Angular acceleration at
 
 %--------------------Angular acceleration--------------------
 
@@ -22,39 +24,47 @@ alpha_2 = M0/(m*(0.25*r^2+d_BC^2+d_AB^2)); %(rad/s^2)
 
 t = [0:0.2:4]; %Creates a time vector from 0s to 4s every 0.2s
 
-omega_1 = omega_1_0 + alpha_1*t; %Calculates angular velocity_1 at each t
+omega_1 = omega_1_0 + alpha_1*t; %Computes angular velocity_1 at each t
 
-omega_2 = alpha_2*t; %Calculates angular velocity_2 at each t
+omega_2 = alpha_2*t; %Computes angular velocity_2 at each t
 
-%--------------------Calculates reactions at E--------------------
+%--------------------Computes reactions at E--------------------
 
-Ex = (m/d_DE)*(-0.5*r^2*alpha_1+d_CD*d_AB*alpha_2-d_CD*d_BC*omega_2.^2); %Reaction at E in the x direction
+Ex = (m/d_DE)*(-0.5*r^2*alpha_1+d_CD*d_AB*alpha_2-d_CD*d_BC*omega_2.^2); %Reaction at E in x direction
 
-Ey = (m/d_DE)*(-0.5*r^2*omega_1.*omega_2+d_CD*d_BC*alpha_2+d_CD*d_AB*omega_2.^2); %Reaction at E in the y direction
+Ey = (m/d_DE)*(-0.5*r^2*omega_1.*omega_2+d_CD*d_BC*alpha_2+d_CD*d_AB*omega_2.^2); %Reaction at E in y direction
 
-%--------------------Calculates reactions at D--------------------
+%--------------------Computes reactions at D--------------------
 
-Dx = m*(d_AB*alpha_2-d_BC*omega_2.^2)-Ex; %Reaction at D in the x direction
+Dx = m*(d_AB*alpha_2-d_BC*omega_2.^2)-Ex; %Reaction at D in x direction
 
-Dy = m*(d_BC*alpha_2+d_AB*omega_2.^2)-Ey; %Reaction at D in the y direction
+Dy = m*(d_BC*alpha_2+d_AB*omega_2.^2)-Ey; %Reaction at D in y direction
+
+%--------------------Writes the data--------------------
+
+vetor = [t;Dx;Dy;Ex;Ey];
+fprintf('Time (s), Dx (N), Dy (N), Ex (N), Ey (N)\n')
+fprintf('\n');
+fprintf('%8.5f  %8.5f  %8.5f  %8.5f  %8.5f\n',vetor);
+fprintf('\n');
 
 %--------------------Plots the graphs--------------------
 
 figure(1)
 plot(t,Dx,'g',t,Dy,'r')
-xlabel('Time(s)')
-ylabel('Reactions at D(N)')
+xlabel('Tempo(s)')
+ylabel('Reações em D(N)')
 legend('Dx','Dy')
 grid on
 
 figure(2)
 plot(t,Ex,'g',t,Ey,'r')
-xlabel('Time(s)')
-ylabel('Reactions at E(N)')
+xlabel('Tempo(s)')
+ylabel('Reações em E(N)')
 legend('Ex','Ey')
 grid on
 
-%--------------------Ey(t) Function--------------------
+%--------------------Ey(t) function--------------------
 
 function Ey_val = Ey_t(t)
 
@@ -66,18 +76,18 @@ function Ey_val = Ey_t(t)
     r = 0.08;         %(m)
     M0 = 1.0;         %(N*m)
     omega_1_0 = 90;   %(rad/s)
-    alpha_1 = -15;    %(rad/s^2) Angular acceleration
+    alpha_1 = -15;    %(rad/s^2) Angular acceleration at
 
-    alpha_2 = M0/( m*(0.25*r^2 + d_BC^2 + d_AB^2) ); % Calculates angular acceleration_2
+    alpha_2 = M0/( m*(0.25*r^2 + d_BC^2 + d_AB^2) ); % Computes angular acceleration_2
 
-    omega_1 = omega_1_0 + alpha_1*t;   % Calculates angular velocity_1
-    omega_2 = alpha_2 * t;             % Calculates angular velocity_2
+    omega_1 = omega_1_0 + alpha_1*t;   % Computes angular velocity_1
+    omega_2 = alpha_2 * t;             % Computes angular velocity_2
 
-    % Calculates Ey
+    % Computes Ey
     Ey_val = (m/d_DE) * ( -0.5*r^2 .* omega_1 .* omega_2 + d_CD*d_BC*alpha_2 + d_CD*d_AB .* (omega_2).^2 );
 end
 
-%--------------------Ex(t) Function--------------------
+%--------------------Ex(t) function--------------------
 
 function Ex_val = Ex_t(t)
 
@@ -89,11 +99,11 @@ function Ex_val = Ex_t(t)
     r = 0.08;         %(m)
     M0 = 1.0;         %(N*m)
     omega_1_0 = 90;   %(rad/s)
-    alpha_1 = -15;    %(rad/s^2) Angular acceleration
+    alpha_1 = -15;    %(rad/s^2) Angular acceleration at
 
-    alpha_2 = M0/( m*(0.25*r^2 + d_BC^2 + d_AB^2) ); % Calculates angular acceleration_2
+    alpha_2 = M0/( m*(0.25*r^2 + d_BC^2 + d_AB^2) ); % Computes angular acceleration_2
 
-    % Calculates Ex
+    % Computes Ex
     Ex_val = (m/d_DE) * ( -0.5*r^2 * alpha_1 + d_CD*d_AB*alpha_2 - d_CD*d_BC*(alpha_2*t).^2 );
 end
 
@@ -125,3 +135,15 @@ function raiz = bisseccao(f, a, b, tol, maxIter)
     fprintf('Best approximation after %d iterations: t = %.8f\n', maxIter, raiz);
 
 end
+
+%--------------------Prints each root of the equation--------------------
+
+raiz_Ey = bisseccao(@Ey_t, 0, 0.5, 1e-16, 100);
+fprintf('First root of Ey t = %.8fs \n', raiz_Ey);
+
+raiz_Ey = bisseccao(@Ey_t, 0.5, 4, 1e-16, 100);
+fprintf('Second root of Ey t = %.8fs\n', raiz_Ey);
+
+raiz_Ex = bisseccao(@Ex_t, 0, 4, 1e-16, 100);
+fprintf('First root of Ex t = %.8fs\n', raiz_Ex);
+
