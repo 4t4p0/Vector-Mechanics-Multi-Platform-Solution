@@ -2,14 +2,7 @@
 
 A comprehensive, multi-platform mechanical engineering analysis of a rotating disk-shaft system with support reactions. Implemented identically in MATLAB and Python, featuring kinematic calculations, reaction force analysis, root-finding algorithms, and detailed visualizations.
 
-
-
-## Project Overview
-
-This project analyzes a mechanical system consisting of:
-- **Rotating Disk**: 3.0 kg disk with radius 0.08 m mounted on a shaft
-- **Shaft Support System**: Two fixed support points (D and E) located at 0.15 m and 0.30 m from the disk center
-- **Dynamic Analysis**: Time-domain computation of reaction forces, angular velocities, and accelerations over a 4-second interval
+<img width="962" height="712" alt="image" src="https://github.com/user-attachments/assets/aebb2b90-cf83-4fee-b2c9-eee8821e786b" />
 
 ## Key Features
 
