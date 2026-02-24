@@ -80,9 +80,3 @@ Open [Report/Report.pdf](Report/Report.pdf) for the complete technical analysis 
 - **MATLAB** and **Python** implementations use identical formulas and produce numerically equivalent results
 - Both scripts use the **bisection method** with tolerance = 1e-16 for precise root locations
 - Reaction forces calculated using **moment equilibrium** and **force balance** equations
-- Time vector resolution: 0.2 seconds from t = 0 to t = 4 seconds
-
-
-## License
-
-Educational project for mechanical engineering analysis.
