@@ -35,3 +35,9 @@ The MATLAB script defines the model parameters, computes angular quantities, cal
 2. Install dependencies (if needed): `pip install numpy matplotlib`.
 3. Run the script: `python Code.py`.
 4. It prints the data table, finds roots, and opens the plots.
+
+### SolidWorks
+
+1. Open the assembly [SolidWorks/Pe%C3%A7a_Inteira.SLDASM](SolidWorks/Pe%C3%A7a_Inteira.SLDASM) in SolidWorks.
+2. Open the part files in [SolidWorks](SolidWorks) if you need to inspect or edit components.
+3. Use the [SolidWorks/Graphics%20SolidWorks](SolidWorks/Graphics%20SolidWorks) folder for exported views and figures.
